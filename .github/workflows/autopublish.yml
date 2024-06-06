@@ -1,0 +1,89 @@
+name: Automatically build the resource pack and publish it to GitHub, CurseForge, and Modrinth
+
+on:
+  release:
+    types: [published]
+
+env:
+  PREFIX: CIA-AC-Compat
+  MINECRAFT_VERSIONS: "['1.18.2', '1.19.2', '1.20.1']"
+
+jobs:
+  prepare-matrix:
+    name: Prepare matrix version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.step1.outputs.version }}
+    steps:
+      - id: step1
+        run: echo "version=${{ env.MINECRAFT_VERSIONS }}" >> $GITHUB_OUTPUT
+
+  build:
+    name: Build resource pack
+    needs: prepare-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ${{ fromJson(needs.prepare-matrix.outputs.version) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.version }}
+      - run: zip -r ${{ env.PREFIX }}-${{ github.ref_name }}-${{ matrix.version }}.zip assets pack.mcmeta pack.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PREFIX }}-${{ github.ref_name }}-${{ matrix.version }}
+          path: ${{ env.PREFIX }}-${{ github.ref_name }}-${{ matrix.version }}.zip
+
+  publish-to-github:
+    name: Publish to GitHub
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+      - uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          files: ${{ env.PREFIX }}-${{ github.ref_name }}-*/*.zip
+
+  publish-to-curseforge:
+    name: Publish to CurseForge
+    needs: [prepare-matrix, build]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ${{ fromJson(needs.prepare-matrix.outputs.version) }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.PREFIX }}-${{ github.ref_name }}-${{ matrix.version }}
+      - uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          curseforge-id: 1030930
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          files: ${{ env.PREFIX }}-${{ github.ref_name }}-${{ matrix.version }}.zip
+          # https://github.com/Kir-Antipov/mc-publish/issues/21
+          loaders: minecraft
+          game-versions: ${{ matrix.version }}
+
+  publish-to-modrinth:
+    name: Publish to Modrinth
+    needs: [prepare-matrix, build]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ${{ fromJson(needs.prepare-matrix.outputs.version) }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.PREFIX }}-${{ github.ref_name }}-${{ matrix.version }}
+      - uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: crMGMRni
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          files: ${{ env.PREFIX }}-${{ github.ref_name }}-${{ matrix.version }}.zip
+          # https://github.com/Kir-Antipov/mc-publish/issues/21
+          loaders: minecraft
+          game-versions: ${{ matrix.version }}
