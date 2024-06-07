@@ -18,11 +18,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Added outline around engine and chest in pack.png
 - Sponsoring solutions through GitHub Sponsors, Buy Me a Coffee, Ko-fi, and PayPal
 
 ### Changed
 
-- Improved README.md 
+- Improved README.md
 
 ## [1.0.0] - 2024-06-05
 
