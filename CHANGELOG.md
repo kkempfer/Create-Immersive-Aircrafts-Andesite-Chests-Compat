@@ -14,6 +14,16 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 ### Security
 
+## [1.1.0] - 2024-XX-XX
+
+### Added
+
+- Sponsoring solutions through GitHub Sponsors, Buy Me a Coffee, Ko-fi, and PayPal
+
+### Changed
+
+- Improved README.md 
+
 ## [1.0.0] - 2024-06-05
 
 ### Added
