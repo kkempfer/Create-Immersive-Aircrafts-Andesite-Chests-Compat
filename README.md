@@ -4,10 +4,12 @@
 
 This tiny resource pack adds andesite chests from [Andesite Chests + Crafting Table](https://www.curseforge.com/minecraft/texture-packs/andesite-chests-crafting-table) by [mental_xpc](https://www.curseforge.com/members/mental_xpc/projects) to [Create Immersive Aircrafts](https://www.curseforge.com/minecraft/texture-packs/create-immersive-aircrafts-resource-pack) by [nicky__21](https://www.curseforge.com/members/nicky__21/projects).
 
+Version 1.1.0 for 1.20.1 also integrates the warship from [Create Immersive Aircraft : Warship](https://www.curseforge.com/minecraft/texture-packs/create-immersive-aircraft-warship) by [crazyfl_](https://www.curseforge.com/members/crazyfl_/projects).
+
 ![Before and after loading the resource pack](./gallery/beforeafter.png)
 
 ## Installation
 
-Load this resource pack after both [Andesite Chests + Crafting Table](https://www.curseforge.com/minecraft/texture-packs/andesite-chests-crafting-table) and [Create Immersive Aircrafts](https://www.curseforge.com/minecraft/texture-packs/create-immersive-aircrafts-resource-pack) as shown below.
+Load this resource pack after [Andesite Chests + Crafting Table](https://www.curseforge.com/minecraft/texture-packs/andesite-chests-crafting-table), [Create Immersive Aircrafts](https://www.curseforge.com/minecraft/texture-packs/create-immersive-aircrafts-resource-pack), and [Create Immersive Aircraft : Warship](https://www.curseforge.com/minecraft/texture-packs/create-immersive-aircraft-warship) as shown below.
 
 ![Resource packs loading order](./gallery/resourcepacks.png)
